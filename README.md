@@ -16,7 +16,7 @@ Data Last Updated March 28, 2020
 ![USA Active Cases](./usa/us-a.png)
 
 **Sample Insights for Italy:**
-![Italy New Cases](./italy/it-a.png)
+![Italy New Cases](./italy/it-nc.png)
 ![Italy Recoveries vs Deaths](./italy/it-rvd.png)
 
 All graphs were created in Python, using Matplotlib.
