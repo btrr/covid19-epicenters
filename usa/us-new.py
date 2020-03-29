@@ -28,6 +28,6 @@ plt.xlabel('Date')
 plt.ylabel('Number of New Cases')
 
 # create the graph
-plt.plot(x_values, new_cases)
+plt.plot(x_values, new_cases, color='#730af2', linewidth=2)
 
 plt.show()

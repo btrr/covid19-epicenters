@@ -32,6 +32,6 @@ plt.xlabel('Date')
 plt.ylabel('Number of Deaths')
 
 # create the graph
-plt.plot(x_values, new_deaths)
+plt.plot(x_values, new_deaths, color='#f22d0a', linewidth=2)
 
 plt.show()

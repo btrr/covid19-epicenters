@@ -30,8 +30,8 @@ recoveries = [6, 6, 6, 6, 8, 10, 15, 18, 20, 21, 30, 34, 37, 41, 45, 53, 49, 57,
 deaths = [0, 0, 0, 0, 1, 2, 6, 9, 12, 12, 18, 19, 22, 26, 31, 38, 42, 49, 56, 62, 75, 96, 122, 174, 229, 296, 408, 519, 681, 906, 1159, 1476]
 
 # create the graph
-plt.plot(x_values, recoveries)
-plt.plot(x_values, deaths, color='red')
+plt.plot(x_values, recoveries, color='#12cfdf', linewidth=2)
+plt.plot(x_values, deaths, color='#C70039', linewidth=2)
 
 # text labels
 plt.title('Covid-19 Recoveries vs Deaths in the USA')

@@ -32,6 +32,6 @@ plt.xlabel('Date')
 plt.ylabel('Number of Active Cases (in thousands)')
 
 # create the graph
-plt.plot(x_values, active)
+plt.plot(x_values, active, color='#17cb11', linewidth=2)
 
 plt.show()

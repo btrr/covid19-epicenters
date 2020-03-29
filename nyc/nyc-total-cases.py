@@ -32,6 +32,6 @@ plt.xlabel('Date')
 plt.ylabel('Number of Cases (in thousands)')
 
 # create the graph
-plt.plot(x_values, total_cases)
+plt.plot(x_values, total_cases, color='black', linewidth=2)
 
 plt.show()
