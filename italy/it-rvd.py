@@ -34,7 +34,7 @@ plt.plot(x_values, recoveries, color='#12cfdf', linewidth=2)
 plt.plot(x_values, deaths, color='#C70039', linewidth=2)
 
 # text labels
-plt.title('Covid-19 Recoveries vs Deaths in the USA')
+plt.title('Covid-19 Recoveries vs Deaths in Italy')
 plt.xlabel('Date')
 plt.ylabel('Total')
 plt.legend(['Total Recoveries', 'Total Deaths'], loc='upper left')
