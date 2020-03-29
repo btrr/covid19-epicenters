@@ -1,6 +1,8 @@
 # covid19-epicenters
 Data visualization on the epicenters of the global Covid-19 outbreak, using Matplotlib
 
+**Data Last Updated March 28, 2020**
+
 **Sample Insights for New York City:**
 ![NYC New Cases Each Day](./nyc/n-nc.png)
 ![NYC New Deaths Each Day](./nyc/n-nd.png)
@@ -12,8 +14,6 @@ Data visualization on the epicenters of the global Covid-19 outbreak, using Matp
 **Sample Insights for the United States:**
 ![USA Recoveries vs Deaths](./usa/us-rvd.png)
 ![USA Active Cases](./usa/us-a.png)
-
-**Data Updated: March 28, 2020**
 
 All graphs were created in Python, using Matplotlib.
 
