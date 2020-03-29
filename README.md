@@ -15,6 +15,10 @@ Data Last Updated March 28, 2020
 ![USA Recoveries vs Deaths](./usa/us-rvd.png)
 ![USA Active Cases](./usa/us-a.png)
 
+**Sample Insights for Italy:**
+![Italy New Cases](./italy/it-a.png)
+![Italy Recoveries vs Deaths](./italy/it-rvd.png)
+
 All graphs were created in Python, using Matplotlib.
 
 Data for NYC and Bergen County collected manually via various news sources. Data for the United States collected mainly via [Worldometer](https://www.worldometers.info/coronavirus/country/us/).
