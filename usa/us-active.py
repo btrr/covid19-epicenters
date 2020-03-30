@@ -27,7 +27,7 @@ ax.get_yaxis().set_major_formatter(ticker.FuncFormatter(lambda x, pos: format(in
 active = [12, 12, 12, 10, 29, 29, 28, 48, 51, 54, 54, 57, 60, 65, 85, 106, 138, 200, 289, 401, 504, 663, 949, 1248, 1581, 2126, 2664, 3484, 4434, 6127, 8940, 13464, 18965, 23720, 33000, 42930, 53697, 66790, 82272, 99908, 118126, 135417]
 
 # text labels
-plt.title('Covid-19 Total Active Cases in the USA')
+plt.title('Covid-19 in the United States: Total Active Cases')
 plt.xlabel('Date')
 plt.ylabel('Number of Active Cases (in thousands)')
 
