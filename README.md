@@ -1,7 +1,7 @@
 # covid19-epicenters
 Data visualization on the epicenters of the global Covid-19 outbreak, using Matplotlib
 
-Data Last Updated for March 29, 2020
+Data Last Updated for March 30, 2020, except the new Bergen County mortality numbers, which are updated through March 29
 
 **Key Insights for New York City:**
 ![NYC New Cases Each Day](./nyc/n-nc.png)
