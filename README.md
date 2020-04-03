@@ -1,7 +1,7 @@
 # covid19-epicenters
-Data visualization on the epicenters of the global Covid-19 outbreak, using Matplotlib
+Data visualization on the epicenters of the global Covid-19 outbreak, using Python and Matplotlib
 
-Data Last Updated for April 1, 2020
+Data Last Updated for April 2, 2020
 
 **Key Insights for New York City:**
 ![NYC New Cases Each Day](./nyc/n-nc.png)
@@ -18,7 +18,5 @@ Data Last Updated for April 1, 2020
 **Key Insights for Italy:**
 ![Italy New Cases](./italy/it-nc.png)
 ![Italy Recoveries vs Deaths](./italy/it-rvd.png)
-
-All graphs were created in Python, using Matplotlib.
 
 Data for NYC and Bergen County collected manually via various news sources (specifics available upon request). Data for the United States collected mainly from [Worldometer](https://www.worldometers.info/coronavirus/country/us/).
