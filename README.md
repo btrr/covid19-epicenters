@@ -18,8 +18,9 @@ Data sourced from: various (available upon request)
 ![USA New Cases](./usa/us-nc.png)
 ![USA Recovery Rate vs Mortality Rate](./usa/us-r.png)
 Data sourced from: [Wikipedia](https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_Italy)  
-Due to state lockdowns, social distancing began to slow the rate of new infections as of April 4th. The graph below shows the current cases vs an estimate of how many cases we would have now if the rate of infection had remained steady as of April 4th.
+Due to state lockdowns, social distancing began to slow the overall rate of new infections as of April 4th. The graphs below compare the current cases and deaths vs what each would be if they increased at the same rates as they had been as of April 4th.
 ![USA Projected Cases](./projections/usp-tc.png)
+![USA Projected Deaths](./projections/usp-d.png)
 
 **Key Insights for Italy:**
 ![Italy New Cases](./italy/it-nc.png)
