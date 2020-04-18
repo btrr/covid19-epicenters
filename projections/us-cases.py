@@ -30,8 +30,8 @@ actual = [8074, 12022, 17439, 23710, 32341, 42751, 52690, 64916, 81966, 101012, 
 estimate = [8074, 12022, 17439, 23710, 32341, 42751, 52690, 64916, 81966, 101012, 121105, 140223, 160686, 186082, 212814, 241626, 273808, 307876, 346176, 389240, 437662, 492107, 553325, 622158, 699555, 786579, 884430, 994453, 1118163, 1257262, 1413666]
 
 # create the graph
-plt.plot(x_values, actual, color='#45f266', linewidth=2)
-plt.plot(x_values, estimate, color='#c6350a', linewidth=2)
+plt.plot(x_values, actual, color='#0b6cf7', linewidth=2)
+plt.plot(x_values, estimate, color='#C70039', linewidth=2)
 
 # text labels
 plt.title('Covid-19 in the United States: Actual Cases vs Estimate without Social Distancing')
