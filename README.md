@@ -1,11 +1,11 @@
 # covid19-epicenters
 Data visualization on the epicenters of the global Covid-19 outbreak, using Python and Matplotlib
 
-Data last updated for April 24, 2020, except for Bergen County, which was last updated with April 23rd data
+Data last updated for April 26, 2020
 
 **Key Insights for New York City:**
 ![NYC New Cases Each Day](./nyc/n-nc.png)
-![NYC New Case Increase Rate by Borough](./nyc/n-bb.png)
+![NYC New Cases Each Day by Borough](./nyc/n-nbb.png)
 ![NYC New Deaths Each Day](./nyc/n-nd.png)
 Data sourced from: various (available upon request), and [the NYC Department of Health and Mental Hygiene (DOHMH) Incident Command System for COVID-19 Response](https://github.com/nychealth/coronavirus-data)
 
