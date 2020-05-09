@@ -17,6 +17,8 @@ Data sourced from: various (available upon request)
 **Key Insights for the United States:**
 ![USA New Cases](./usa/us-nc.png)
 ![USA Recovery Rate vs Mortality Rate](./usa/us-r.png)
+![USA vs NY State: New Cases Percent Increase](./usa/ny-us-nc.png)
+![USA vs NY State: New Deaths Percent Increase](./usa/ny-us-d.png)
 Data sourced from: [Wikipedia](https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_Italy)
 
 <br/>
