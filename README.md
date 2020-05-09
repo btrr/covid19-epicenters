@@ -1,7 +1,7 @@
 # covid19-epicenters
 Data visualization on the epicenters of the global Covid-19 outbreak, using Python and Matplotlib
 
-Data last updated for May 6, 2020
+Data last updated for May 8, 2020
 
 **Key Insights for New York City:**
 ![NYC New Cases Each Day](./nyc/n-nc.png)
@@ -20,10 +20,6 @@ Data sourced from: various (available upon request)
 Data sourced from: [Wikipedia](https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_Italy)
 
 <br/>
-
-Due to selected state lockdowns, social distancing began to slow the overall rate of new infections as of April 4th. The graphs below compare the current cases and deaths vs what each would be if they increased at the same rates as they had been as of April 4th.
-![USA Projected Cases](./projections/usp-tc.png)
-![USA Projected Deaths](./projections/usp-d.png)
 
 **Key Insights for Italy:**
 ![Italy New Cases](./italy/it-nc.png)
