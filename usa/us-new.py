@@ -24,6 +24,8 @@ ax.get_yaxis().set_major_formatter(ticker.FuncFormatter(lambda x, pos: format(in
 plt.axvline(dt.datetime(2020, 4, 13), linestyle='-', color='orange', linewidth=1, label='protest')
 # Georgia starts to reopen
 plt.axvline(dt.datetime(2020, 4, 24), linestyle='--', color='#FF1493', linewidth=2, label='georgia')
+# nationwide lockdown lifted
+plt.axvline(dt.datetime(2020, 5, 1), linestyle='--', color='black', linewidth=1, label='lift')
 
 # new cases by day
 new_cases = [1, 0, 0, 1, 1, 2, 0, 0, 0, 1, 1, 1, 3, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 1, 0, 4, 5, 18, 15, 28, 26, 64, 77, 101, 144, 148, 291, 269, 393, 565, 662, 676, 872, 1291, 2410, 3948, 5417, 6271, 8631, 10410, 9939, 12226, 17050, 19046, 20093, 19118, 20463, 25396, 26732, 28812, 32182, 34068, 25717, 29362, 30752, 32039, 34243, 33578, 31869, 28057, 24685, 25987, 29465, 32076, 30915, 28274, 26323, 24593, 25304, 29473, 31926, 36229, 34955, 27488, 21464, 24447, 25904, 29674, 33007, 30568, 25375, 21296, 22404, 24420, 27822, 27518, 25158, 20698, 17779, 21475, 20568, 26754, 25382]
@@ -32,7 +34,7 @@ new_cases = [1, 0, 0, 1, 1, 2, 0, 0, 0, 1, 1, 1, 3, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0
 plt.title('Covid-19 in the United States: New Confirmed Diagnoses')
 plt.xlabel('Date')
 plt.ylabel('Number of New Cases (in thousands)')
-plt.legend(['First Anti-Lockdown Protest: Columbus, OH', 'Georgia lifted lockdown'], loc='upper left')
+plt.legend(['First Anti-Lockdown Protest: Columbus, OH', 'Georgia lifted lockdown', 'Nationwide Stay-at-Home Ends'], loc='upper left')
 
 # create the graph
 plt.plot(x_values, new_cases, color='#730af2', linewidth=2)
