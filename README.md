@@ -23,7 +23,7 @@ Data sourced from: [Wikipedia](https://en.wikipedia.org/wiki/2020_coronavirus_pa
 
 <br/>
 
-**Key Insights for Italy:**
-![Italy New Cases](./italy/it-nc.png)
-![Italy Recovery Rate vs Mortality Rate](./italy/it-r.png)
-Data sourced from: [Wikipedia](https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_Italy)
+**Key Insights for the UK:**
+![UK New Cases](./uk/uk-nc.png)
+![UK New Deaths](./uk/uk-nd.png)
+Data sourced from: [Wikipedia](https://en.wikipedia.org/wiki/Timeline_of_the_2020_coronavirus_pandemic_in_the_United_Kingdom)
