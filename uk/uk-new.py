@@ -18,7 +18,7 @@ ax.xaxis.set_major_locator(mdates.WeekdayLocator(byweekday=(MO, TU, WE, TH, FR, 
 ax.xaxis.set_minor_locator(mdates.WeekdayLocator(byweekday=(MO, TU, WE, TH, FR, SA, SU)))
 
 # format y-axis
-ax.get_yaxis().set_major_formatter(ticker.FuncFormatter(lambda x, pos: format(int(x))))
+ax.get_yaxis().set_major_formatter(ticker.FuncFormatter(lambda x, pos: format(int(x/1000))))
 
 # stay-at-home
 plt.axvline(dt.datetime(2020, 3, 23), color='black', linewidth=2, label='stay at home')
@@ -31,7 +31,7 @@ new_cases = [6, 4, 12, 5, 11, 34, 29, 46, 46, 65, 50, 52, 83, 134, 207, 264, 330
 # text labels
 plt.title('Covid-19 in the UK: New Confirmed Diagnoses')
 plt.xlabel('Date')
-plt.ylabel('Number of New Cases')
+plt.ylabel('Number of New Cases (in thousands)')
 plt.legend(['Nationwide Stay-at-Home Order', 'Boris confirmed to have coronavirus'], loc='upper left')
 
 # create the graph
