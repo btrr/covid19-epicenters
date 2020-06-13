@@ -13,7 +13,7 @@ formatter = mdates.DateFormatter("%m/%d")
 ax.xaxis.set_major_formatter(formatter)
 
 # create x-axis
-ax.xaxis.set_major_locator(mdates.WeekdayLocator(byweekday=(MO, TU, WE, TH, FR, SA, SU), interval=5))
+ax.xaxis.set_major_locator(mdates.WeekdayLocator(byweekday=(MO, TU, WE, TH, FR, SA, SU), interval=7))
 # minor tick = daily
 ax.xaxis.set_minor_locator(mdates.WeekdayLocator(byweekday=(MO, TU, WE, TH, FR, SA, SU)))
 
