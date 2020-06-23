@@ -18,6 +18,7 @@ Data sourced from: various (available upon request)
 ![USA New Cases](./usa/us-nc.png)
 ![USA Recovery Rate vs Mortality Rate](./usa/us-r.png)
 ![Georgia New Cases](./usa/g-nc.png)
+![Oklahoma New Cases](./usa/ok-nc.png)
 
 **Key Insights for the UK:**
 ![UK New Cases](./uk/uk-nc.png)
