@@ -30,6 +30,10 @@ plt.axvline(dt.datetime(2020, 3, 20), linestyle='--', color='red', linewidth=2, 
 plt.axvline(dt.datetime(2020, 3, 22), color='black', linewidth=2, label='stay at home')
 # massive funeral in brooklyn
 plt.axvline(dt.datetime(2020, 4, 29), color='black', linestyle='--', linewidth=2, label='funeral')
+# reopening, phase 1
+plt.axvline(dt.datetime(2020, 6, 8), color='green', linewidth=2, label='stay at home')
+# reopening, phase 1
+plt.axvline(dt.datetime(2020, 6, 22), color='orange', linewidth=2, label='funeral')
 
 # new cases by day
 new_cases = [0, 1, 0, 0, 0, 3, 0, 7, 9, 7, 5, 23, 47, 59, 115, 60, 485, 109, 1086, 1606, 2068, 2432, 2649, 2355, 2478, 4414, 3101, 3585, 4033, 2744, 4613, 5052, 4210, 2358, 6582, 4561, 4105, 3821, 5825, 5603, 7521, 6684, 4306, 5695, 2403, 450, 4161, 6141, 4583, 4220, 3420, 2679, 2407, 3561, 3319, 4385, 4437, 2628, 2896, 1613, 2152, 2347, 2293, 2378, 1962, 1689, 1189, 1565, 1421, 1377, 1395, 1285, 4896, 657, 887, 1087, 1555, 1183, 1377, 665, 577, 724, 466, 1111, 716, 785, 646, 525, 728, 904, 783, 855, 654, 283, 293, 683, 513, 510, 601, 389, 434, 323, 435, 394, 441, 476, 284, 443, 324, 448, 276, 358, 308, 550, 249]
@@ -38,7 +42,7 @@ new_cases = [0, 1, 0, 0, 0, 3, 0, 7, 9, 7, 5, 23, 47, 59, 115, 60, 485, 109, 108
 plt.title('Covid-19 in NYC: New Cases')
 plt.xlabel('Date')
 plt.ylabel('Number of New Cases (in thousands)')
-plt.legend(['Ban on Gatherings > 500', 'Schools Closure', 'Non-Essential Businesses Closure', 'Statewide Stay-at-Home Order', 'Massive Funeral Crowd in Brooklyn'], loc='upper left')
+plt.legend(['Ban on Gatherings > 500', 'Schools Closure', 'Non-Essential Businesses Closure', 'Statewide Stay-at-Home Order', 'Massive Funeral Crowd in Brooklyn', 'Reopening, Phase 1', 'Reopening, Phase 2'], loc='upper left')
 
 # create the graph
 plt.plot(x_values, new_cases, color='#730af2', linewidth=2)
