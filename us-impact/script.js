@@ -291,7 +291,7 @@ defs.append("linearGradient")
 svg.append("text")
 	.attr("class", "title")
     .attr("x", width/2-10)
-    .attr("y", -80)
+    .attr("y", -35)
     .text("New Confirmed Cases of Covid-19");
 
 svg.append("g")
