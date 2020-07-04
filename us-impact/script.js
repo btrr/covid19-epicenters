@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////
 //////////////////// Set up and initiate svg containers ///////////////////
-///////////////////////////////////////////////////////////////////////////	
+///////////////////////////////////////////////////////////////////////////
 
 var somData = [
 	// ALABAMA
@@ -108,11 +108,18 @@ var somData = [
 var MapColumns = 17, // up to July 2nd
 	MapRows = 50; // TODO: CHANGE TO 50
 
+	// var margin = {
+	// 	top: 140,
+	// 	right: 30,
+	// 	bottom: 120,
+	// 	left: 30
+	// };
+
 var margin = {
-	top: 140,
-	right: 30,
-	bottom: 120,
-	left: 30
+	top: 100,
+	right: 60,
+	bottom: 100,
+	left: 60
 };
 
 //First try for width
@@ -140,8 +147,9 @@ d3.select("html").style("font-size", newFontSize + "%");
 	
 //Format to display numbers
 var formatPercent = d3.format("%");
-	
-//Needed for gradients			
+
+//Append a defs (for definition) element to your SVG
+//Needed for gradients; the linearGradient element must be nested within this
 var defs = svg.append("defs");
 
 ///////////////////////////////////////////////////////////////////////////
@@ -191,16 +199,41 @@ var colorInterpolateYGB = d3.scale.linear()
 ///////////////////// Create the YGB color gradient ///////////////////////
 ///////////////////////////////////////////////////////////////////////////
 
-//Calculate the gradient	
+
+//Calculate the gradient
+//Append a linearGradient element to the defs and give it a unique id
 defs.append("linearGradient")
-	.attr("id", "gradient-ygb-colors")
+	.attr("id", "gradient-ygb-colors") // It’s very important that the gradient gets a unique id that can be referenced later when we set the fill of the rectangle.
+	// Next we have to define the direction of the gradient. Do we want it to go from left to right (horizontal), top to bottom (vertical) or along an angle? To set this, we use the x1, y1, x2 and y2 attributes in the same manner as an SVG line. These values define a vector, an arrow, from the starting point [x1,y1] to the end point [x2,y2] along which the gradient should run.
+	// if we have a rectangle that is 300px wide, then 0% for the x attributes would have the same result as 0px and 100% would be the same using 300px. In most cases, it is easier to work with percentages. A horizontal gradient would thus have x1 at 0%, x2 at 100% and both y1 and y2 the same (so 0% is fine). If we want a vertical gradient from top to bottom, we only have to switch the values of x2 and y2
 	.attr("x1", "0%").attr("y1", "0%")
 	.attr("x2", "100%").attr("y2", "0%")
-	.selectAll("stop") 
+	// You need at least two colors to have a gradient. However, there is no upper limit to the number of colors that you can use. For each color along the gradient, you have to append a stop element. And a stop element can have 3 attributes: 1) stop-color: the color you want to have in the gradient. 2) offset: at what location along the directional vector/arrow that you defined with the x and y attributes should the stop-color be its exact color (i.e. the pure color). This is set in percentages along the directional arrow. 3) stop-opacity: the opacity of the stop-color at the offset location. This is very useful if you want a gradient that goes from a color to transparent (the default is 1)
+	.selectAll("stop")
+	// We can append multiple colors faster by using D3’s data().enter() step and seeing the colors as a dataset. Instead of normally appending circles to a scatterplot with data().enter(), we are now appending stop elements to the linearGradient. Below you can see one way of quickly setting 9 colors along the gradient.
+	// .data([
+    //     {offset: "0%", color: "#2c7bb6"},
+    //     {offset: "12.5%", color: "#00a6ca"},
+    //     {offset: "25%", color: "#00ccbc"},
+    //     {offset: "37.5%", color: "#90eb9d"},
+    //     {offset: "50%", color: "#ffff8c"},
+    //     {offset: "62.5%", color: "#f9d057"},
+    //     {offset: "75%", color: "#f29e2e"},
+    //     {offset: "87.5%", color: "#e76818"},
+    //     {offset: "100%", color: "#d7191c"}
+    //   ])
+    // .enter().append("stop")
+    // .attr("offset", function(d) { return d.offset; })
+	// .attr("stop-color", function(d) { return d.color; });
+	// This can be done even faster and less hard-coded if you want the colors spread out evenly by using a color scale. This is probably something that you’ve defined anyway for the colors of you data visualization elements, such as circles in a scatterplot or hexagons in a heatmap.
+	//A color scale
+// var colorScale = d3.scale.linear()
+// .range(["#2c7bb6", "#00a6ca","#00ccbc","#90eb9d","#ffff8c",
+// 		"#f9d057","#f29e2e","#e76818","#d7191c"]);
 	.data(coloursYGB)                  
 	.enter().append("stop") 
-	.attr("offset", function(d,i) { return i/(coloursYGB.length-1); })   
-	.attr("stop-color", function(d) { return d; });
+	.attr("offset", (d,i) => { return i/(coloursYGB.length-1); })   
+	.attr("stop-color", (d) => { return d; });
 
 ///////////////////////////////////////////////////////////////////////////
 //////////// Get continuous color scale for the Rainbow ///////////////////
@@ -230,11 +263,25 @@ defs.append("linearGradient")
 	.attr("id", "gradient-rainbow-colors")
 	.attr("x1", "0%").attr("y1", "0%")
 	.attr("x2", "100%").attr("y2", "0%")
-	.selectAll("stop") 
-	.data(coloursRainbow)                  
-	.enter().append("stop") 
-	.attr("offset", function(d,i) { return i/(coloursRainbow.length-1); })   
-	.attr("stop-color", function(d) { return d; });
+	.selectAll("stop")
+	.data([
+		    {offset: "0%", color: "#2c7bb6"},
+		    {offset: "12.5%", color: "#00a6ca"},
+		    {offset: "25%", color: "#00ccbc"},
+		    {offset: "37.5%", color: "#90eb9d"},
+		    {offset: "50%", color: "#ffff8c"},
+		    {offset: "62.5%", color: "#f9d057"},
+		    {offset: "75%", color: "#f29e2e"},
+		    {offset: "87.5%", color: "#e76818"},
+		    {offset: "100%", color: "#d7191c"}
+		  ])
+		.enter().append("stop")
+		.attr("offset", function(d) { return d.offset; })
+		.attr("stop-color", function(d) { return d.color; });
+	// .data(coloursRainbow)                  
+	// .enter().append("stop") 
+	// .attr("offset", (d,i) => { return i/(coloursRainbow.length-1); })   
+	// .attr("stop-color", (d) => { return d; });
 
 ///////////////////////////////////////////////////////////////////////////
 //////////////////////////// Draw Heatmap /////////////////////////////////
