@@ -160,7 +160,7 @@ var SQRT3 = Math.sqrt(3),
     hexWidth = SQRT3 * hexRadius,
     hexHeight = 2 * hexRadius;
 var hexagonPoly = [[0,-1],[SQRT3/2,0.5],[0,1],[-SQRT3/2,0.5],[-SQRT3/2,-0.5],[0,-1],[SQRT3/2,-0.5]];
-var hexagonPath = "m" + hexagonPoly.map(function(p){ return [p[0]*hexRadius, p[1]*hexRadius].join(','); }).join('l') + "z";
+var hexagonPath = "m" + hexagonPoly.map((p) => { return [p[0]*hexRadius, p[1]*hexRadius].join(','); }).join('l') + "z";
 
 var points = [];
 for (var i = 0; i < MapRows; i++) {
@@ -276,8 +276,8 @@ defs.append("linearGradient")
 		    {offset: "100%", color: "#d7191c"}
 		  ])
 		.enter().append("stop")
-		.attr("offset", function(d) { return d.offset; })
-		.attr("stop-color", function(d) { return d.color; });
+		.attr("offset", (d) => { return d.offset; })
+		.attr("stop-color", (d) => { return d.color; });
 	// .data(coloursRainbow)                  
 	// .enter().append("stop") 
 	// .attr("offset", (d,i) => { return i/(coloursRainbow.length-1); })   
@@ -299,7 +299,7 @@ svg.append("g")
 	.data(points)
 	.enter().append("path")
 	.attr("class", "hexagon")
-	.attr("d", function (d) { return "M" + d.x + "," + d.y + hexagonPath; })
+	.attr("d", (d) => { return "M" + d.x + "," + d.y + hexagonPath; })
 	.style("stroke", "#fff")
 	.style("stroke-width", "1px")
 	.style("fill", "white")
@@ -382,7 +382,7 @@ function updateRainbow() {
 	//Transition the hexagon colors
 	svg.selectAll(".hexagon")
 		.transition().duration(1000)
-		.style("fill", function (d,i) { return colorScaleRainbow(colorInterpolateRainbow(somData[i])); })
+		.style("fill", (d,i) => { return colorScaleRainbow(colorInterpolateRainbow(somData[i])); })
 }//updateRainbow
 
 //Start set-up
