@@ -1,6 +1,6 @@
 // SET UP SVG CONTAINERS
 
-var somData = [
+const somData = [
 	// ALABAMA
 	0, .159080, .819875, 1.611198, 3.19792, 3.19384, 2.912393, 2.520810, 3.732268, 4.221746, 4.262535, 7.081112, 4.560301, 7.562431, 10.854169, 10.109755, 13.972550,
 	// ALASKA
@@ -104,25 +104,16 @@ var somData = [
 ];
 
 var MapColumns = 17, // up to July 2nd
-	MapRows = 50; // TODO: CHANGE TO 50
+	MapRows = 50;
 
-	// var margin = {
-	// 	top: 140,
-	// 	right: 30,
-	// 	bottom: 120,
-	// 	left: 30
-	// };
-
-var margin = {
+const margin = {
 	top: 80,
 	right: 60,
 	bottom: 100,
 	left: 60
 };
 
-// this actually changed the sizing of the hexagons
-// var width = Math.max(Math.min(window.innerWidth, 1000), 500) - margin.left - margin.right - 20;
-// var height = window.innerHeight - margin.top - margin.bottom - 20;
+// this changes the sizing of the hexagons
 var width = 1000;
 var height = 1200;
 
@@ -133,7 +124,6 @@ var hexRadius = d3.min([width/(Math.sqrt(3)*MapColumns), height/(MapRows*1.5)]);
 var width = MapColumns*hexRadius*Math.sqrt(3);
 var height = MapRows*1.5*hexRadius+0.5*hexRadius;
 
-//SVG container
 var svg = d3.select('#chart')
 	.append("svg")
 	.attr("width", width + margin.left + margin.right)
@@ -144,13 +134,10 @@ var svg = d3.select('#chart')
 //Reset the overall font size
 var newFontSize = width * 62.5 / 800;
 d3.select("html").style("font-size", newFontSize + "%");
-	
-//Format to display numbers
-var formatPercent = d3.format("%");
 
-//Append a defs (for definition) element to your SVG
-//Needed for gradients; the linearGradient element must be nested within this
+// Needed for gradients; the linearGradient element must be nested within this
 var defs = svg.append("defs");
+
 
 
 // CALCULATE HEXAGON CENTERS AND ADD TO ARRAY
@@ -170,10 +157,11 @@ for (var i = 0; i < MapRows; i++) {
 			a = SQRT3 * j * hexRadius;
 		} else {
 			a = SQRT3 * (j - 0.5) * hexRadius;
-		}//else
+		}
 		points.push({x: a, y: b});
-	}//for j
-}//for i
+	} // for j
+} // for i
+
 
 
 // GET CONTINUOUS COLOR SCALE FOR YELLOW-GREEN-BLUE FILL
@@ -182,108 +170,72 @@ var coloursYGB = ["#FFFFDD","#AAF191","#80D385","#61B385","#3E9583","#217681","#
 var colourRangeYGB = d3.range(0, 1, 1.0 / (coloursYGB.length - 1));
 colourRangeYGB.push(1);
 		   
-//Create color gradient
+// Create color gradient
 var colorScaleYGB = d3.scale.linear()
 	.domain(colourRangeYGB)
 	.range(coloursYGB)
 	.interpolate(d3.interpolateHcl);
 
-//Needed to map the values of the dataset to the color scale
+// Needed to map the values of the dataset to the color scale
 var colorInterpolateYGB = d3.scale.linear()
 	.domain(d3.extent(somData))
 	.range([0,1]);
 
 
+
 // CREATE YGB COLOR GRADIENT
 
-//Calculate the gradient
-//Append a linearGradient element to the defs and give it a unique id
-defs.append("linearGradient")
-	.attr("id", "gradient-ygb-colors") // It’s very important that the gradient gets a unique id that can be referenced later when we set the fill of the rectangle.
-	// Next we have to define the direction of the gradient. Do we want it to go from left to right (horizontal), top to bottom (vertical) or along an angle? To set this, we use the x1, y1, x2 and y2 attributes in the same manner as an SVG line. These values define a vector, an arrow, from the starting point [x1,y1] to the end point [x2,y2] along which the gradient should run.
-	// if we have a rectangle that is 300px wide, then 0% for the x attributes would have the same result as 0px and 100% would be the same using 300px. In most cases, it is easier to work with percentages. A horizontal gradient would thus have x1 at 0%, x2 at 100% and both y1 and y2 the same (so 0% is fine). If we want a vertical gradient from top to bottom, we only have to switch the values of x2 and y2
-	.attr("x1", "0%").attr("y1", "0%")
-	.attr("x2", "100%").attr("y2", "0%")
-	// You need at least two colors to have a gradient. However, there is no upper limit to the number of colors that you can use. For each color along the gradient, you have to append a stop element. And a stop element can have 3 attributes: 1) stop-color: the color you want to have in the gradient. 2) offset: at what location along the directional vector/arrow that you defined with the x and y attributes should the stop-color be its exact color (i.e. the pure color). This is set in percentages along the directional arrow. 3) stop-opacity: the opacity of the stop-color at the offset location. This is very useful if you want a gradient that goes from a color to transparent (the default is 1)
-	.selectAll("stop")
-	// We can append multiple colors faster by using D3’s data().enter() step and seeing the colors as a dataset. Instead of normally appending circles to a scatterplot with data().enter(), we are now appending stop elements to the linearGradient. Below you can see one way of quickly setting 9 colors along the gradient.
-	// .data([
-    //     {offset: "0%", color: "#2c7bb6"},
-    //     {offset: "12.5%", color: "#00a6ca"},
-    //     {offset: "25%", color: "#00ccbc"},
-    //     {offset: "37.5%", color: "#90eb9d"},
-    //     {offset: "50%", color: "#ffff8c"},
-    //     {offset: "62.5%", color: "#f9d057"},
-    //     {offset: "75%", color: "#f29e2e"},
-    //     {offset: "87.5%", color: "#e76818"},
-    //     {offset: "100%", color: "#d7191c"}
-    //   ])
-    // .enter().append("stop")
-    // .attr("offset", function(d) { return d.offset; })
-	// .attr("stop-color", function(d) { return d.color; });
-	// This can be done even faster and less hard-coded if you want the colors spread out evenly by using a color scale. This is probably something that you’ve defined anyway for the colors of you data visualization elements, such as circles in a scatterplot or hexagons in a heatmap.
-	//A color scale
-// var colorScale = d3.scale.linear()
-// .range(["#2c7bb6", "#00a6ca","#00ccbc","#90eb9d","#ffff8c",
-// 		"#f9d057","#f29e2e","#e76818","#d7191c"]);
-	.data(coloursYGB)                  
-	.enter().append("stop") 
-	.attr("offset", (d,i) => { return i/(coloursYGB.length-1); })   
-	.attr("stop-color", (d) => { return d; });
+// TODO: don't need this?
+// defs.append("linearGradient")
+// 	.attr("id", "gradient-ygb-colors")
+// 	.attr("x1", "0%").attr("y1", "0%")
+// 	.attr("x2", "100%").attr("y2", "0%")
+// 	.selectAll("stop")
+// 	.data(coloursYGB)                  
+// 	.enter().append("stop") 
+// 	.attr("offset", (d,i) => { return i/(coloursYGB.length-1); })   
+// 	.attr("stop-color", (d) => { return d; });
 
 
-// GET CONTINUOUS COLOR SCALE FOR THE RAINBOW
+
+// GET CONTINUOUS COLOR SCALE
 
 // TODO: add to colors?
 // var coloursRainbow = ["#2c7bb6", "#00a6ca","#00ccbc","#90eb9d","#ffff8c","#f9d057","#f29e2e","#e76818","#d7191c"];
-var coloursRainbow = ["#2c7bb6", "#00a6ca","#00ccbc","#90eb9d","#f9d057","#f29e2e","#e76818","#d7191c", "#a60508", "850305"];
-var colourRangeRainbow = d3.range(0, 1, 1.0 / (coloursRainbow.length - 1));
-colourRangeRainbow.push(1);
+var gradientColors = ["#e5e5e5", "#000"]; // white to black
+var gradientColorRange = d3.range(0, 1, 1.0 / (gradientColors.length - 1));
+gradientColorRange.push(1);
 		   
 //Create color gradient
 var colorScaleRainbow = d3.scale.linear()
-	.domain(colourRangeRainbow)
-	.range(coloursRainbow)
+	.domain(gradientColorRange)
+	.range(gradientColors)
 	.interpolate(d3.interpolateHcl);
 
-// TODO: this is where we can change the colors of the hexagons (by changing the second value in range) (started at a range of [0,1])
+// TODO: this is where we can change the intensity of colors of the hexagons (by changing the second value in range) (started at a range of [0,1])
 //Needed to map the values of the dataset to the color scale
 var colorInterpolateRainbow = d3.scale.linear()
 	.domain(d3.extent(somData))
-	.range([0,1]);
+	.range([0, 1.3]);
 
 
-// CREATE RAINBOW COLOR GRADIENT
 
-//Calculate the gradient	
+// CREATE COLOR GRADIENT
+
 defs.append("linearGradient")
 	.attr("id", "gradient-rainbow-colors")
 	.attr("x1", "0%").attr("y1", "0%")
 	.attr("x2", "100%").attr("y2", "0%")
 	.selectAll("stop")
-	// .data([
-	// 	    {offset: "0%", color: "#2c7bb6"},
-	// 	    {offset: "12.5%", color: "#00a6ca"},
-	// 	    {offset: "25%", color: "#00ccbc"},
-	// 	    {offset: "37.5%", color: "#90eb9d"},
-	// 	    {offset: "50%", color: "#ffff8c"},
-	// 	    {offset: "62.5%", color: "#f9d057"},
-	// 	    {offset: "75%", color: "#f29e2e"},
-	// 	    {offset: "87.5%", color: "#e76818"},
-	// 	    {offset: "100%", color: "#d7191c"}
-	// 	  ])
-	// 	.enter().append("stop")
-	// 	.attr("offset", (d) => { return d.offset; })
-	// 	.attr("stop-color", (d) => { return d.color; });
-	.data(coloursRainbow)                  
+	.data(gradientColors)                  
 	.enter().append("stop") 
-	.attr("offset", (d,i) => { return i/(coloursRainbow.length-1); })   
+	.attr("offset", (d,i) => { return i/(gradientColors.length-1); })   
 	.attr("stop-color", (d) => { return d; });
+
 
 
 // DRAW HEATMAP
 
-//Append title to the top
 svg.append("text")
 	.attr("class", "title")
     .attr("x", width/2-10)
@@ -327,22 +279,22 @@ legendsvg.append("text")
 	.attr("class", "legendTitle")
 	.attr("x", 0)
 	.attr("y", -2)
-	.text("Number of Cases");
+	.text("Number of Cases Per Capita");
 
 //Set scale for x-axis
 var xScale = d3.scale.linear()
 	 .range([0, legendWidth])
-	 .domain([0,100]); // TODO: CHANGE THIS TO 10K?
+	 .domain([0,100]);
 
 //Define x-axis
 var xAxis = d3.svg.axis()
 	  .orient("bottom")
-	  .ticks(5)  //Set rough # of ticks
+	  .ticks(5)
 	  .scale(xScale);
 
 //Set up X axis
 legendsvg.append("g")
-	.attr("class", "axis")  //Assign "axis" class
+	.attr("class", "axis")
 	.attr("transform", "translate(" + (-legendWidth/2) + "," + (10 + legendHeight) + ")")
 	.call(xAxis);
 
