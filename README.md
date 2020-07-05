@@ -21,8 +21,3 @@ Data sourced from: various (available upon request)
 ![Georgia New Cases](./usa/g-nc.png)
 ![Oklahoma New Cases](./usa/ok-nc.png)
 Data sourced from: [Wikipedia](https://en.wikipedia.org/wiki/Template:2019%E2%80%9320_coronavirus_pandemic_data/United_States_medical_cases)
-
-### Key Insights for the UK:
-![UK New Cases](./uk/uk-nc.png)
-![UK New Deaths](./uk/uk-nd.png)
-Data sourced from: [Wikipedia](https://en.wikipedia.org/wiki/Timeline_of_the_2020_coronavirus_pandemic_in_the_United_Kingdom)
