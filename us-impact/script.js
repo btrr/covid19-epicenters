@@ -1,3 +1,11 @@
+/** TODOS:
+ * 
+ * remove superfluous code
+ * change var to const/let (and rename variables so that theyre more descriptive)
+ * this ^^ will mess up hoisting, so i'll need to reorganize some stuff
+ * 
+ */
+
 // SET UP SVG CONTAINERS
 
 const somData = [
@@ -106,6 +114,7 @@ const somData = [
 var MapColumns = 17, // up to July 2nd
 	MapRows = 50;
 
+// TODO: one line?
 const margin = {
 	top: 80,
 	right: 60,
@@ -117,9 +126,11 @@ const margin = {
 var width = 1000;
 var height = 1200;
 
+// TODO: potentially get rid of this
 //The maximum radius the hexagons can have to still fit the screen
 var hexRadius = d3.min([width/(Math.sqrt(3)*MapColumns), height/(MapRows*1.5)]);
 	
+// when i comment this out, page still loads, but formatting is off. TODO: fix
 //Set the new height and width based on the max possible
 var width = MapColumns*hexRadius*Math.sqrt(3);
 var height = MapRows*1.5*hexRadius+0.5*hexRadius;
@@ -202,7 +213,7 @@ var colorInterpolateYGB = d3.scale.linear()
 
 // TODO: add to colors?
 // var coloursRainbow = ["#2c7bb6", "#00a6ca","#00ccbc","#90eb9d","#ffff8c","#f9d057","#f29e2e","#e76818","#d7191c"];
-var gradientColors = ["#e5e5e5", "#000"]; // white to black
+var gradientColors = ["#E8E8E8", "#000"]; // white to black
 var gradientColorRange = d3.range(0, 1, 1.0 / (gradientColors.length - 1));
 gradientColorRange.push(1);
 		   
@@ -216,7 +227,7 @@ var colorScaleRainbow = d3.scale.linear()
 //Needed to map the values of the dataset to the color scale
 var colorInterpolateRainbow = d3.scale.linear()
 	.domain(d3.extent(somData))
-	.range([0, 1.3]);
+	.range([0, 2]);
 
 
 
@@ -240,12 +251,21 @@ svg.append("text")
 	.attr("class", "title")
     .attr("x", width/2-10)
     .attr("y", -35)
-    .text("New Confirmed Cases of Covid-19");
+	.text("New Confirmed Cases of Covid-19");
+	
+let hexCounter = 0;
+const states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
 
 svg.append("g")
 	.selectAll(".hexagon")
 	.data(points)
 	.enter().append("path")
+	.attr("id", () => {
+		hexCounter++;
+		let mappedVal = hexCounter/MapColumns;
+
+		return mappedVal % 1 === 0 ? states[mappedVal - 1] : states[Math.floor(mappedVal)];
+	})
 	.attr("class", "hexagon")
 	.attr("d", (d) => { return "M" + d.x + "," + d.y + hexagonPath; })
 	.style("stroke", "#fff")
