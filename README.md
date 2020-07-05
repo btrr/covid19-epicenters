@@ -5,7 +5,6 @@ Data last updated for July 2, 2020, except for UK graphs, which are updated for 
 
 ### Key Insights for New York City:
 ![NYC New Cases Each Day](./nyc/n-nc.png)
-![NYC New Cases Each Day by Borough](./nyc/n-nbb.png)
 ![NYC New Deaths Each Day](./nyc/n-nd.png)
 Data sourced from: various (available upon request), and [the NYC Department of Health and Mental Hygiene (DOHMH) Incident Command System for COVID-19 Response](https://github.com/nychealth/coronavirus-data)
 
