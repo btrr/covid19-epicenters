@@ -17,7 +17,4 @@ Data sourced from: various (available upon request)
 ### Key Insights for the United States:
 ![USA New Cases](./usa/us-nc.png)
 ![USA New Deaths](./usa/us-nd.png)
-![USA Recovery Rate vs Mortality Rate](./usa/us-r.png)
-![Georgia New Cases](./usa/g-nc.png)
-![Oklahoma New Cases](./usa/ok-nc.png)
 Data sourced from: [Wikipedia](https://en.wikipedia.org/wiki/Template:2019%E2%80%9320_coronavirus_pandemic_data/United_States_medical_cases)
