@@ -3,10 +3,14 @@
  * remove superfluous code
  * change var to const/let (and rename variables so that theyre more descriptive)
  * this ^^ will mess up hoisting, so i'll need to reorganize some stuff
+ * move data to modules: https://www.tutorialsteacher.com/d3js/loading-data-from-file-in-d3js
  * 
  */
 
 // SET UP SVG CONTAINERS
+
+// test
+// d3.json('./test.json', (data) => console.log(data));
 
 const somData = [
 	// ALABAMA
@@ -260,17 +264,17 @@ svg.append("g")
 	.selectAll(".hexagon")
 	.data(points)
 	.enter().append("path")
-	.attr("id", () => {
-		hexCounter++;
-		let mappedVal = hexCounter/MapColumns;
+		.attr("id", () => {
+			hexCounter++;
+			let mappedVal = hexCounter/MapColumns;
 
-		return mappedVal % 1 === 0 ? states[mappedVal - 1] : states[Math.floor(mappedVal)];
-	})
-	.attr("class", "hexagon")
-	.attr("d", (d) => { return "M" + d.x + "," + d.y + hexagonPath; })
-	.style("stroke", "#fff")
-	.style("stroke-width", "1px")
-	.style("fill", "white")
+			return mappedVal % 1 === 0 ? states[mappedVal - 1] : states[Math.floor(mappedVal)];
+		})
+		.attr("class", "hexagon")
+		.attr("d", (d) => { return "M" + d.x + "," + d.y + hexagonPath; })
+		.style("stroke", "#fff")
+		.style("stroke-width", "1px")
+		.style("fill", "white")
 	.on("mouseover", mover)
 	.on("mouseout", mout);
 
@@ -299,7 +303,7 @@ legendsvg.append("text")
 	.attr("class", "legendTitle")
 	.attr("x", 0)
 	.attr("y", -2)
-	.text("Number of Cases Per Capita");
+	.text("Number of New Cases Per Capita");
 
 //Set scale for x-axis
 var xScale = d3.scale.linear()
@@ -333,7 +337,7 @@ function mover(d) {
 function mout(d) { 
 	var el = d3.select(this)
 	   .transition()
-	   .duration(1000)
+	   .duration(1500)
 	   .style("fill-opacity", 1);
 };
 
