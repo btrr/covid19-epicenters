@@ -217,7 +217,7 @@ var colorInterpolateYGB = d3.scale.linear()
 
 // TODO: add to colors?
 // var coloursRainbow = ["#2c7bb6", "#00a6ca","#00ccbc","#90eb9d","#ffff8c","#f9d057","#f29e2e","#e76818","#d7191c"];
-var gradientColors = ["#E8E8E8", "#000"]; // white to black
+var gradientColors = ["#E8E8E8", "#000"]; // gray to black
 var gradientColorRange = d3.range(0, 1, 1.0 / (gradientColors.length - 1));
 gradientColorRange.push(1);
 		   
