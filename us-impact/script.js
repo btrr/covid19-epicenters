@@ -118,7 +118,6 @@ const somData = [
 var MapColumns = 22, // INCREMENT ME
 	MapRows = 50;
 
-// TODO: one line?
 const margin = {
 	top: 80,
 	right: 60,
@@ -178,45 +177,8 @@ for (var i = 0; i < MapRows; i++) {
 } // for i
 
 
-
-// GET CONTINUOUS COLOR SCALE FOR YELLOW-GREEN-BLUE FILL
-
-var coloursYGB = ["#FFFFDD","#AAF191","#80D385","#61B385","#3E9583","#217681","#285285","#1F2D86","#000086"];
-var colourRangeYGB = d3.range(0, 1, 1.0 / (coloursYGB.length - 1));
-colourRangeYGB.push(1);
-		   
-// Create color gradient
-var colorScaleYGB = d3.scale.linear()
-	.domain(colourRangeYGB)
-	.range(coloursYGB)
-	.interpolate(d3.interpolateHcl);
-
-// Needed to map the values of the dataset to the color scale
-var colorInterpolateYGB = d3.scale.linear()
-	.domain(d3.extent(somData))
-	.range([0,1]);
-
-
-
-// CREATE YGB COLOR GRADIENT
-
-// TODO: don't need this?
-// defs.append("linearGradient")
-// 	.attr("id", "gradient-ygb-colors")
-// 	.attr("x1", "0%").attr("y1", "0%")
-// 	.attr("x2", "100%").attr("y2", "0%")
-// 	.selectAll("stop")
-// 	.data(coloursYGB)                  
-// 	.enter().append("stop") 
-// 	.attr("offset", (d,i) => { return i/(coloursYGB.length-1); })   
-// 	.attr("stop-color", (d) => { return d; });
-
-
-
 // GET CONTINUOUS COLOR SCALE
 
-// TODO: add to colors?
-// var coloursRainbow = ["#2c7bb6", "#00a6ca","#00ccbc","#90eb9d","#ffff8c","#f9d057","#f29e2e","#e76818","#d7191c"];
 var gradientColors = ["#E8E8E8", "#000"]; // gray to black
 var gradientColorRange = d3.range(0, 1, 1.0 / (gradientColors.length - 1));
 gradientColorRange.push(1);
@@ -236,7 +198,6 @@ var colorInterpolateRainbow = d3.scale.linear()
 
 
 // CREATE COLOR GRADIENT
-
 defs.append("linearGradient")
 	.attr("id", "gradient-rainbow-colors")
 	.attr("x1", "0%").attr("y1", "0%")
@@ -250,7 +211,6 @@ defs.append("linearGradient")
 
 
 // DRAW HEATMAP
-
 svg.append("text")
 	.attr("class", "title")
     .attr("x", width/2-10)
@@ -280,7 +240,6 @@ svg.append("g")
 
 
 // DRAW THE LEGEND
-
 var legendWidth = width * 0.6,
 	legendHeight = 10;
 
