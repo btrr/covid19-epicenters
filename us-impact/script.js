@@ -1,16 +1,4 @@
-/** TODOS:
- * 
- * remove superfluous code
- * change var to const/let (and rename variables so that theyre more descriptive)
- * this ^^ will mess up hoisting, so i'll need to reorganize some stuff
- * move data to modules: https://www.tutorialsteacher.com/d3js/loading-data-from-file-in-d3js
- * 
- */
-
 // SET UP SVG CONTAINERS
-
-// test
-// d3.json('./test.json', (data) => console.log(data));
 
 const somData = [
 	// ALABAMA
@@ -115,105 +103,103 @@ const somData = [
 	0.01728, 0.29373, 0.65658, 1.62416, 1.53777, 0.98487, 0.62202, 1.43410, 1.17493, 0.79480, 1.36499, 1.01942, 0.72569, 1.45138, 1.95245, 2.52264, 3.12738, 3.36928, 3.73212, 4.82066, 5.07983, 4.00858,
 ];
 
-var MapColumns = 22, // INCREMENT ME
+const MapColumns = 22, // INCREMENT ME
 	MapRows = 50;
 
-const margin = {
-	top: 80,
-	right: 60,
-	bottom: 100,
-	left: 60
-};
+const margin = { top: 80, right: 60, bottom: 100, left: 60 };
 
-// this changes the sizing of the hexagons
-var width = 1000;
-var height = 1200;
+const initialHoneycombWidth = 1000;
+const initialHoneycombHeight = 1200;
+const maxHoneycombRadius = d3.min([initialHoneycombWidth/(Math.sqrt(3) * MapColumns), initialHoneycombHeight / (MapRows * 1.5)]);
 
-// TODO: potentially get rid of this
-//The maximum radius the hexagons can have to still fit the screen
-var hexRadius = d3.min([width/(Math.sqrt(3)*MapColumns), height/(MapRows*1.5)]);
-	
-// when i comment this out, page still loads, but formatting is off. TODO: fix
-//Set the new height and width based on the max possible
-var width = MapColumns*hexRadius*Math.sqrt(3);
-var height = MapRows*1.5*hexRadius+0.5*hexRadius;
+const honeycombWidth = MapColumns * maxHoneycombRadius * Math.sqrt(3);
+const honeycombHeight = MapRows * 1.5 * maxHoneycombRadius + 0.5 * maxHoneycombRadius;
 
-var svg = d3.select('#chart')
+const svg = d3.select('#beehive-chart')
 	.append("svg")
-	.attr("width", width + margin.left + margin.right)
-	.attr("height", height + margin.top + margin.bottom)
+	.attr("width", honeycombWidth + margin.left + margin.right)
+	.attr("height", honeycombHeight + margin.top + margin.bottom)
 	.append("g")
 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-//Reset the overall font size
-var newFontSize = width * 62.5 / 800;
-d3.select("html").style("font-size", newFontSize + "%");
+const fontSize = honeycombWidth * 62.5 / 800;
+d3.select("html").style("font-size", fontSize + "%");
 
-// Needed for gradients; the linearGradient element must be nested within this
-var defs = svg.append("defs");
-
+// the linearGradient element must be nested inside this
+const defs = svg.append("defs");
 
 
-// CALCULATE HEXAGON CENTERS AND ADD TO ARRAY
 
-var SQRT3 = Math.sqrt(3),
-    hexWidth = SQRT3 * hexRadius,
-    hexHeight = 2 * hexRadius;
-var hexagonPoly = [[0,-1],[SQRT3/2,0.5],[0,1],[-SQRT3/2,0.5],[-SQRT3/2,-0.5],[0,-1],[SQRT3/2,-0.5]];
-var hexagonPath = "m" + hexagonPoly.map((p) => { return [p[0]*hexRadius, p[1]*hexRadius].join(','); }).join('l') + "z";
+// CALCULATE HONEYCOMB MEASUREMENTS AND ADD TO ARRAY
 
-var points = [];
-for (var i = 0; i < MapRows; i++) {
-	for (var j = 0; j < MapColumns; j++) {
-		var a;
-		var b = (3 * i) * hexRadius / 2;
+const SQRT3 = Math.sqrt(3),
+    calculatedHoneycombWidth = SQRT3 * maxHoneycombRadius,
+	calculatedHoneycombHeight = 2 * maxHoneycombRadius;
+	
+const honeycombSides = [
+	[0, -1],
+	[SQRT3 / 2, 0.5],
+	[0, 1],
+	[-SQRT3 / 2, 0.5],
+	[-SQRT3 / 2, -0.5],
+	[0, -1],
+	[SQRT3 / 2, -0.5]
+];
+
+const honeycombPath = "m" + honeycombSides.map((p) => [p[0] * maxHoneycombRadius, p[1] * maxHoneycombRadius].join(',')).join('l') + "z";
+
+const points = [];
+for (let i = 0; i < MapRows; i++) {
+	for (let j = 0; j < MapColumns; j++) {
+		let a;
+		const b = (3 * i) * maxHoneycombRadius / 2;
 		if (i % 2 === 0) {
-			a = SQRT3 * j * hexRadius;
+			a = SQRT3 * j * maxHoneycombRadius;
 		} else {
-			a = SQRT3 * (j - 0.5) * hexRadius;
+			a = SQRT3 * (j - 0.5) * maxHoneycombRadius;
 		}
 		points.push({x: a, y: b});
-	} // for j
-} // for i
+	}
+}
 
 
-// GET CONTINUOUS COLOR SCALE
 
-var gradientColors = ["#E8E8E8", "#000"]; // gray to black
-var gradientColorRange = d3.range(0, 1, 1.0 / (gradientColors.length - 1));
+// CREATE CONTINUOUS COLOR SCALE
+
+const gradientColors = ["#E8E8E8", "#000"]; // gray to black
+const gradientColorRange = d3.range(0, 1, 1.0 / (gradientColors.length - 1));
 gradientColorRange.push(1);
-		   
-//Create color gradient
-var colorScaleRainbow = d3.scale.linear()
+
+const createColorGradient = d3.scale.linear()
 	.domain(gradientColorRange)
 	.range(gradientColors)
 	.interpolate(d3.interpolateHcl);
 
-// TODO: this is where we can change the intensity of colors of the hexagons (by changing the second value in range) (started at a range of [0,1])
-//Needed to map the values of the dataset to the color scale
-var colorInterpolateRainbow = d3.scale.linear()
+const mapDataValuesToGradientScale = d3.scale.linear()
 	.domain(d3.extent(somData))
 	.range([0, 2]);
 
 
 
 // CREATE COLOR GRADIENT
+
 defs.append("linearGradient")
-	.attr("id", "gradient-rainbow-colors")
+	.attr("id", "color-gradient")
 	.attr("x1", "0%").attr("y1", "0%")
 	.attr("x2", "100%").attr("y2", "0%")
 	.selectAll("stop")
-	.data(gradientColors)                  
-	.enter().append("stop") 
-	.attr("offset", (d,i) => { return i/(gradientColors.length-1); })   
-	.attr("stop-color", (d) => { return d; });
+	.data(gradientColors)
+	.enter().append("stop")
+	.attr("offset", (d, i) => { return i / (gradientColors.length - 1) })
+	.attr("stop-color", (d) => { return d });
 
 
 
-// DRAW HEATMAP
+// CREATE HEATMAP
+
 svg.append("text")
-	.attr("class", "title")
-    .attr("x", width/2-10)
+	.attr("class", "beehive-title")
+    .attr("x", honeycombWidth / 2 - 10)
     .attr("y", -35)
 	.text("New Confirmed Cases of Covid-19");
 	
@@ -221,96 +207,89 @@ let hexCounter = 0;
 const states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
 
 svg.append("g")
-	.selectAll(".hexagon")
+	.selectAll(".honeycomb")
 	.data(points)
 	.enter().append("path")
 		.attr("id", () => {
 			hexCounter++;
-			let mappedVal = hexCounter/MapColumns;
+			let mappedVal = hexCounter / MapColumns;
 
 			return mappedVal % 1 === 0 ? states[mappedVal - 1] : states[Math.floor(mappedVal)];
 		})
-		.attr("class", "hexagon")
-		.attr("d", (d) => { return "M" + d.x + "," + d.y + hexagonPath; })
+		.attr("class", "honeycomb")
+		.attr("d", (d) => { return "M" + d.x + "," + d.y + honeycombPath; })
 		.style("stroke", "#fff")
 		.style("stroke-width", "1px")
 		.style("fill", "white")
-	.on("mouseover", mover)
-	.on("mouseout", mout);
+	.on("mouseover", mouseonHoneycomb)
+	.on("mouseout", mouseoutHoneycomb);
 
 
-// DRAW THE LEGEND
-var legendWidth = width * 0.6,
+
+// CREATE LEGEND
+
+const legendWidth = honeycombWidth * 0.6,
 	legendHeight = 10;
 
-//Color Legend container
-var legendsvg = svg.append("g")
+const legendContainer = svg.append("g")
 	.attr("class", "legendWrapper")
-	.attr("transform", "translate(" + (width/2 - 10) + "," + (height+50) + ")");
+	.attr("transform", "translate(" + (honeycombWidth/2 - 10) + "," + (honeycombHeight+50) + ")");
 
-//Draw the Rectangle
-legendsvg.append("rect")
-	.attr("class", "legendRect")
-	.attr("x", -legendWidth/2)
+legendContainer.append("rect")
+	.attr("class", "legendBar")
+	.attr("x", -legendWidth / 2)
 	.attr("y", 10)
 	.attr("width", legendWidth)
 	.attr("height", legendHeight)
 	.style("fill", "none");
 	
-//Append title
-legendsvg.append("text")
+legendContainer.append("text")
 	.attr("class", "legendTitle")
 	.attr("x", 0)
 	.attr("y", -2)
 	.text("Number of New Cases Per Capita");
 
-//Set scale for x-axis
-var xScale = d3.scale.linear()
+const xAxisScale = d3.scale.linear()
 	 .range([0, legendWidth])
 	 .domain([0,100]);
 
-//Define x-axis
-var xAxis = d3.svg.axis()
+const xAxis = d3.svg.axis()
 	  .orient("bottom")
 	  .ticks(5)
-	  .scale(xScale);
+	  .scale(xAxisScale);
 
-//Set up X axis
-legendsvg.append("g")
+legendContainer.append("g")
 	.attr("class", "axis")
 	.attr("transform", "translate(" + (-legendWidth/2) + "," + (10 + legendHeight) + ")")
 	.call(xAxis);
 
 
+
 // MOUSE INTERACTIONS
 
-//Function to call when you mouseover a node
-function mover(d) {
-	var el = d3.select(this)
+function mouseonHoneycomb(d) {
+	const el = d3.select(this)
 		.transition()
 		.duration(10)		  
 		.style("fill-opacity", 0.3);
-}
+};
 
-//Mouseout function
-function mout(d) { 
-	var el = d3.select(this)
+function mouseoutHoneycomb(d) { 
+	const el = d3.select(this)
 	   .transition()
 	   .duration(1500)
 	   .style("fill-opacity", 1);
 };
 
-//Transition the colors to a rainbow
-function updateRainbow() {
-	//Fill the legend rectangle
-	svg.select(".legendRect")
-		.style("fill", "url(#gradient-rainbow-colors)");
-	//Transition the hexagon colors
-	svg.selectAll(".hexagon")
+function createGradient() {
+	svg.select(".legendBar")
+		.style("fill", "url(#color-gradient)");
+	svg.selectAll(".honeycomb")
 		.transition().duration(1000)
-		.style("fill", (d,i) => { return colorScaleRainbow(colorInterpolateRainbow(somData[i])); })
-}//updateRainbow
+		.style("fill", (d,i) => { return createColorGradient(mapDataValuesToGradientScale(somData[i])); })
+};
 
-//Start set-up
-updateRainbow();
-var currentFill = "rainbow";
+
+
+// SETUP
+createGradient();
