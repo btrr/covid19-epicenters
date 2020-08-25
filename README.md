@@ -8,11 +8,6 @@ Data last updated for August 17, 2020
 ![NYC New Deaths Each Day](./nyc/n-nd.png)
 Data sourced from: various (available upon request), and [the NYC Department of Health and Mental Hygiene (DOHMH) Incident Command System for COVID-19 Response](https://github.com/nychealth/coronavirus-data)
 
-### Key Insights for Bergen County, New Jersey:
-![Bergen County New Cases Each Day](./bergen-county/b-nc.png)
-![Bergen County New Deaths Each Day](./bergen-county/b-nd.png)
-Data sourced from: various (available upon request)
-
 ### Key Insights for the United States:
 ![USA New Cases](./usa/us-nc.png)
 ![USA New Deaths](./usa/us-nd.png)
