@@ -1,7 +1,7 @@
 # covid19-epicenters
 Data visualization on the epicenters of the global Covid-19 outbreak, using Python and Matplotlib
 
-Data last updated for September 6, 2020 for USA and September 7 for NYC
+Data last updated for September 11, 2020
 
 ### Key Insights for New York City:
 ![NYC New Cases Each Day](./nyc/n-nc.png)
