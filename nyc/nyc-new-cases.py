@@ -39,9 +39,6 @@ plt.axvline(dt.datetime(2020, 4, 29), color='black',
 # reopening, phase 1
 plt.axvline(dt.datetime(2020, 6, 8), color='green',
             linewidth=2, label='stay at home')
-# reopening, phase 1
-plt.axvline(dt.datetime(2020, 6, 22), color='orange',
-            linewidth=2, label='funeral')
 # schools reopen
 plt.axvline(dt.datetime(2020, 9, 21), color='red',
             linewidth=2, label='funeral')
@@ -55,7 +52,7 @@ plt.title('Covid-19 in NYC: New Cases')
 plt.xlabel('Date')
 plt.ylabel('Number of New Cases (in thousands)')
 plt.legend(['Schools Closure', 'Non-Essential Businesses Closure', 'Statewide Stay-at-Home Order',
-            'Massive Funeral Crowd in Brooklyn', 'Reopening, Phase 1', 'Reopening, Phase 2', 'Schools Reopen'], loc='upper left')
+            'Massive Funeral Crowd in Brooklyn', 'Reopening, Phase 1', 'Schools Reopen'], loc='upper right')
 
 # create the graph
 plt.plot(x_values, new_cases, color='#730af2', linewidth=2)
