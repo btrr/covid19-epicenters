@@ -2,7 +2,7 @@
 
 Data visualization on the epicenters of the global Covid-19 outbreak, using Python and Matplotlib
 
-Data last updated for December 4, 2020
+Data last updated for December 12, 2020
 
 ### Key Insights for New York City:
 
