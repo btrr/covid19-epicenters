@@ -2,8 +2,8 @@
 
 Data visualization on the epicenters of the global Covid-19 outbreak, using Python and Matplotlib
 
-Honeycomb and US last updated for 1/15 data
-NYC last updated for 1/21 data
+Honeycomb and US last updated for 1/22 data
+NYC last updated for 1/26 data
 
 ### Key Insights for New York City:
 
